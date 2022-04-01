@@ -1,8 +1,7 @@
-import sys
-
 import requests
 import bs4
 from urllib.parse import urlparse
+import cld2
 
 
 class Crawler:
@@ -59,7 +58,8 @@ class Crawler:
                         self.hrefs += self.get_hrefs(request)
                         text = self.clear_HTML(request.text)
                         length = self.get_len(text)
-                        if length >= self.count_words:
+                        detect = cld2.detect(text)
+                        if length >= self.count_words and detect.details[0].percent >= 95 and detect.details[0].language_name == 'RUSSIAN':
                             page_number += 1
                             counter += 1
                             self.visited_urls.append(current_page)
