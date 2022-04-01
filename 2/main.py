@@ -6,6 +6,7 @@ import cld2
 
 def tokenize():
     setList = set()
+    morph = pymorphy2.MorphAnalyzer(lang='ru')
     for i in range(1, 101):
         file = open(f'files/{i}.txt', 'r', encoding='utf-8')
         text = file.read()
@@ -21,8 +22,9 @@ def tokenize():
             if cld2.detect(word).details[1].language_name == 'RUSSIAN':
                 continue
             try:
-                tokens.write(word + "\n")
-                setList.add(word)
+                normal_word = morph.parse(word)[0]
+                tokens.write(str(normal_word.normal_form) + " ")
+                setList.add(str(normal_word.normal_form))
             except UnicodeEncodeError:
                 print(UnicodeEncodeError)
                 pass
@@ -30,7 +32,7 @@ def tokenize():
 
 
 def lemmatize(words):
-    morph = pymorphy2.MorphAnalyzer()
+    morph = pymorphy2.MorphAnalyzer(lang='ru')
     obj = {}
     for word in words:
         word = word.lower()
