@@ -55,8 +55,6 @@ def parse(list_of_tokens, dict_of_words):
 
     list_of_tokens = to_normal_form(list_of_tokens)
 
-    print(list_of_tokens)
-
     if list_of_tokens[0] != logic[2]:
         set_of_all_docs = set(dict_of_words[list_of_tokens[0]])
         i = 1
@@ -86,10 +84,16 @@ def main():
     invert_index = create_index()
     file_result = open('index.txt', 'w', errors="ignore")
     file_result.write(str(invert_index))
-    search1 = "федеральный OR казанский AND NOT подразделение"
+    search1 = "федеральный AND казанский OR подразделение"
+    search2 = "федеральный AND NOT казанский OR NOT подразделение"
+    search3 = "федеральный OR казанский OR подразделение"
     set1 = parse(search1.split(" "), invert_index)
+    set2 = parse(search2.split(" "), invert_index)
+    set3 = parse(search3.split(" "), invert_index)
 
-    print(set1)
+    print(search1 + ' ' + str(set1))
+    print(search2 + ' ' + str(set2))
+    print(search3 + ' ' + str(set3))
 
 
 if __name__ == "__main__":
