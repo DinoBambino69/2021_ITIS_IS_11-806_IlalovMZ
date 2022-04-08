@@ -16,7 +16,7 @@ def tf(vocab):
             for i, word in enumerate(vocab):
                 arr[i] = words_in_document.count(word)
 
-        tf_matrix.append(list(map(lambda x: x / len(words_in_document), arr)))
+        tf_matrix.append(list(map(lambda x: round(x / len(words_in_document), 5), arr)))
 
     return np.array(tf_matrix)
 
@@ -24,7 +24,7 @@ def tf(vocab):
 def idf(inverse_index, n_docs=100):
     idf_per_word_in_vocab = np.zeros(len(inverse_index))
     for i, word in enumerate(inverse_index.keys()):
-        idf_per_word_in_vocab[i] = math.log(n_docs / len(inverse_index[word]))
+        idf_per_word_in_vocab[i] = round(math.log(n_docs / len(inverse_index[word])), 5)
 
     return idf_per_word_in_vocab
 
@@ -34,7 +34,7 @@ def tf_idf(tf, idf):
 
     for word_i, row in enumerate(tf.T):
         for doc_i, column in enumerate(row):
-            tf_idf_matrix[word_i][doc_i] = column * idf[word_i]
+            tf_idf_matrix[word_i][doc_i] = round(column * idf[word_i], 5)
 
     return tf_idf_matrix
 
