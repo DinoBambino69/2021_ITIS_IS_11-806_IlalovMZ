@@ -91,4 +91,12 @@ if __name__ == "__main__":
 
     text = "структура кфу"
 
+    text2 = 'научная библиотека'
+
+    text3 = 'абитуриент кфу'
+
     print(get_relevant_docs(text, 100))
+
+    print(get_relevant_docs(text2, 100))
+
+    print(get_relevant_docs(text3, 100))
