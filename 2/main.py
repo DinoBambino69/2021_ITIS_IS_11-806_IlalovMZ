@@ -8,7 +8,7 @@ def tokenize():
     setList = set()
     morph = pymorphy2.MorphAnalyzer(lang='ru')
     for i in range(1, 101):
-        file = open(f'files/{i}.txt', 'r', encoding='utf-8')
+        file = open(f'../1/files/{i}.txt', 'r', encoding='utf-8')
         text = file.read()
 
         for p in string.punctuation:
